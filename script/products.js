@@ -1,6 +1,6 @@
 const localStorageKeyBought = 'bought';
 let bought = JSON.parse(localStorage.getItem(localStorageKeyBought)) || [];
-let main = document.querySelector('.main');
+let main = document.querySelector('main');
 let clothes = JSON.parse(localStorage.getItem('clothes')) || [];
 
 function renderItems(items) {
@@ -50,7 +50,7 @@ document.getElementById('searchBar').addEventListener('input', searchAndSort);
 document.getElementById('sortOptions').addEventListener('change', searchAndSort);
 
 // Check if all data is deleted and display a spinner
-if (clothes.length === 0) {
+if (clothes.join('').length == 0) {
     main.innerHTML = '<div id="spinner" class="spinner" style="display: none;"><i class="fas fa-spinner fa-spin"></i></div>';
 } else {
     // Initial rendering
