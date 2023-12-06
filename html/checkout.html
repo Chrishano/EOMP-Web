@@ -9,22 +9,64 @@
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="navbar-container container">
-            <input type="checkbox" name="" id="">
-            <div class="hamburger-lines">
-                <span class="line line1"></span>
-                <span class="line line2"></span>
-                <span class="line line3"></span>
+    <!-- Navbar -->
+
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container container">
+                <input type="checkbox" name="" id="">
+                <div class="hamburger-lines">
+                    <span class="line line1"></span>
+                    <span class="line line2"></span>
+                    <span class="line line3"></span>
+                </div>
+                <ul class="menu-items">
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/html/about.html">About</a></li>
+                    <li><a href="/html/products.html">Products</a></li>
+                    <li><a href="/html/contact.html">Contact</a></li>
+                    <li><a href="/html/checkout.html">Checkout</a></li>
+                    <li><a href="/html/admin.html">Admin</a></li>
+                </ul>
+                <h1 class="logo">Senpai-kun</h1>
             </div>
-            <ul class="menu-items">
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="/html/about.html">About</a></li>
-                <li><a href="/html/products.html">Products</a></li>
-                <li><a href="/html/contact.html">Contact</a></li>
-                <li><a href="/html/checkout.html">Checkout</a></li>
-                <li><a href="/html/admin.html">Admin</a></li>
-            </ul>
-            <h1 class="logo">Senpai-kun</h1>
-        </div>
-    </nav>
+        </nav>
+        </header>
+
+    <!-- Form Design -->
+    <header>
+        <h1>Checkout</h1>
+    </header>
+
+    <main>
+        <section id="order-summary">
+            <h2>Order Summary</h2>
+            <table class="main2 table-bordered">
+                <thead>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Product details will be dynamically added here using JavaScript -->
+                </tbody>
+            </table>
+            <p id="totalAmount">Total Amount: R0.00</p>
+            <button id="payButton">Pay Now</button>
+        </section>
+    </main>
+
+    
+
+<footer class="fixed-bottom text-center">
+    <p>&copy; 2023 SENPAI-KUN. All rights reserved.</p>
+</footer>
+
+<script src="/script/checkout.js"></script>
+</body>
+</html>
