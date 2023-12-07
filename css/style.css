@@ -1,9 +1,4 @@
-body {
- background-color: #000;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
-  }
+
 
   /* Navbar */
 
@@ -587,12 +582,7 @@ body { font-size: 100%; } /* Controls Size */
   100% { transform: rotate(2deg); }
 }
 
-/* Paragraph (About) */
-
-p {
-    position: absolute;
-    top: 75%;
-}
+    
 
 /* Glowing Button */
 
@@ -639,3 +629,14 @@ p {
     left: 50%;
   }
 
+p {
+    position: absolute;
+    top: 97%;
+    left: 40%;
+}
+
+h5 {
+    position: absolute;
+    top: 70%;
+    margin: 7%;
+}
