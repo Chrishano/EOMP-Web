@@ -1,5 +1,9 @@
+
+
+
 // Products stored
 let clothes = [];
+
 // Constructor function to create items
 function item(id, name, description, price, url) {
     this.id = id;
@@ -73,7 +77,7 @@ function store() {
 }
 function SENPAI() {
     let table = document.querySelector('table');
-    let jewelry = clothes.map(function (item, index) {
+    let clothing = clothes.map(function (item, index) {
         return `<tr>
         <td>${item.id}</td>
         <td>${item.name}</td>
@@ -84,7 +88,7 @@ function SENPAI() {
         <td><button class="delete" value="${index}">Delete</button></td>
         </tr>`;
     });
-    table.innerHTML = jewelry.join('');
+    table.innerHTML = clothing.join('');
     let deleteButtons = document.querySelectorAll('.delete');
     deleteButtons.forEach((button) => {
         button.addEventListener('click', function () {
@@ -221,3 +225,48 @@ document.addEventListener('DOMContentLoaded', function () {
     // Connects the addProduct function to a button or an event listener
     document.getElementById('addProductButton').addEventListener('click', addProduct);
 });
+
+document.querySelector('table').addEventListener('click', function (event) {
+    if (event.target.classList.contains('edit')) {
+        const selectedItem = clothes[event.target.dataset.index];
+        openEditForm(selectedItem);
+    }
+});
+
+function openEditForm(item) {
+    const editNameInput = document.getElementById('editName');
+    const editDescriptionInput = document.getElementById('editDescription');
+    const editPriceInput = document.getElementById('editPrice');
+    const editImageInput = document.getElementById('editImage');
+    const editForm = document.getElementById('editForm');
+
+    editNameInput.value = item.name;
+    editDescriptionInput.value = item.description;
+    editPriceInput.value = item.price;
+    editImageInput.value = item.url;
+
+    // Save the index of the item being edited
+    editForm.dataset.index = clothes.indexOf(item);
+
+    editForm.style.display = 'block';
+}
+
+document.getElementById('saveEdit').addEventListener('click', function () {
+    // Get the index from the dataset
+    const index = parseInt(document.getElementById('editForm').dataset.index);
+    
+    if (!isNaN(index) && index >= 0 && index < clothes.length) {
+        // Update the selected clothes with the edited values
+        clothes[index].name = document.getElementById('editName').value;
+        clothes[index].description = document.getElementById('editDescription').value;
+        clothes[index].price = parseFloat(document.getElementById('editPrice').value);
+        clothes[index].url = document.getElementById('editImage').value;
+        
+        // Update the table and close the edit form
+        SENPAI();
+        closeEditForm();
+    } else {
+        console.error('Invalid index.');
+    }
+});
+
