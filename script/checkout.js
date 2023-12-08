@@ -1,41 +1,26 @@
-// getting the items from localstorage from the array that was bought
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-// let check = JSON.parse(localStorage.getItem('bought')) || [];
+// Retrieve cart data from local storage or initialize an empty array
+let unique = JSON.parse(localStorage.getItem('cart')) || [];
 
-
-// Remove duplicates based on the 'description' property
-let unique = cart.filter((value, index, self) => self.findIndex(obj => obj.description === value.description) === index)
-
-// setting the table into the main
-let table = document.querySelector('.main2');
+// Select the table, total amount element, and pay button in the document
+let table = document.querySelector('.master');
 let totalAmountElement = document.getElementById('totalAmount');
 let payButton = document.getElementById('payButton');
 
-// Function to remove an item from the cart
+// Remove an item from the cart based on the provided index
 function removeItem(index) {
-    // Remove the item at the specified index
     unique.splice(index, 1);
-    console.log(unique)
-    // Save the updated cart back to local storage
     localStorage.setItem('cart', JSON.stringify(unique));
-    // Re-render the order summary
-    // renderOrderSummary();
-    // Recalculate the total amount
     calculateTotalAmount();
 }
 
-// Event listener for input changes
+// Listen for input changes in the table and update total amount accordingly
 table.addEventListener('input', function(event) {
     if (event.target.classList.contains('quantity-input')) {
-        calculateTotalAmount(); // calling function to update amount
+        calculateTotalAmount();
     }
 });
 
-let dltBtns = [...document.querySelectorAll(".delete-btn")]
-
-
-
-// Event listener for delete buttons
+// Listen for clicks on delete buttons in the table and remove the corresponding item
 table.addEventListener('click', function(event) {
     if (event.target.classList.contains('delete-btn')) {
         const index = event.target.dataset.index;
@@ -43,25 +28,16 @@ table.addEventListener('click', function(event) {
     }
 });
 
-// ... (your existing code)
-
-// the function to calculate the amount of all the products bought
+// Calculate and display the total amount based on the items and quantities in the cart
 function calculateTotalAmount() {
-    
-    //reduce function () calculates the total amount by iterating over the array for things being bought
     let totalAmount = unique.reduce((total, item, index) => {
-       
-        // The quantity of the item is obtained from an input field
-        // anded a 'data-index' attribute matching the current index into the loop.
         const quantity = document.querySelector(`.quantity-input[data-index="${index}"]`).value;
-        
-        // total = adding the product of the item's price and the quantity.
         return total + item.price * quantity;
-    }, 0).toFixed(2);  //result is converted to a string with exactly two decimal places using the toFixed(2) method.
-    
-    // The totalAmount is then assigned to the 'textContent' property of an element for the display on css
+    }, 0).toFixed(2);
     totalAmountElement.textContent = `Total Amount: R${totalAmount}`;
 }
+
+// Populate the table with rows representing each unique item in the cart
 table.querySelector('tbody').innerHTML = unique.map((item, index) => {
     return `
     <tr>
@@ -78,25 +54,43 @@ table.querySelector('tbody').innerHTML = unique.map((item, index) => {
         </td>
     </tr>`;
 }).join('');
-table.addEventListener('input', function(event){ // event parameter contains information about the input event
-    if(event.target.classList.contains('quantity-input')){
-        
-        // Pass both the index and quantity to the handlePayment function
+
+// Listen for input changes in the table and handle payment accordingly
+table.addEventListener('input', function(event) {
+    if (event.target.classList.contains('quantity-input')) {
         handlePayment(event.target.dataset.index, event.target.value);
-        calculateTotalAmount(); // calling function to update amount
+        calculateTotalAmount();
     }
 });
+
+// Listen for clicks on the pay button and display a payment completion alert
 payButton.addEventListener('click', function() {
     alert('Payment completed. Thank you for your purchase!');
-    // Add any additional logic for completing the payment
 });
-// handles the payment for item at index and with quantity chosen
+
+// Handle the payment for an item at the given index and with the chosen quantity
 function handlePayment(index, quantity) {
-    
-    // Use the quantity parameter in your logic
-    alert(`You have selected ${quantity} ${quantity > 1 ? 'items' : 'item'} of ${cart[index].name}.`);
+    alert(`You have selected ${quantity} ${quantity > 1 ? 'items' : 'item'} of ${unique[index].name}.`);
 }
 
-// ... (your existing code)
+// Add the selected item to the cart with the appropriate quantity
+function add(index) {
+    const existingItemIndex = unique.findIndex(item => item.description === unique[index].description);
 
-// ... (your existing code)
+    if (existingItemIndex !== -1) {
+        unique[existingItemIndex].quantity += 1;
+    } else {
+        unique.push({ ...unique[index], quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(unique));
+}
+
+// Listen for clicks on the main element and add items to the cart
+main.addEventListener('click', function(event) {
+    if (event.target.hasAttribute('data-add')) {
+        add(event.target.value);
+        renderItems(unique);
+    }
+});
+
