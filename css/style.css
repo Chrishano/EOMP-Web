@@ -1040,3 +1040,46 @@ body, button, input {
     padding: 0;
   }
 }
+
+/* Tablets and smaller screens */
+@media (max-width: 1024px) {
+  .navbar-container input[type="checkbox"],
+  .navbar-container .hamburger-lines {
+    display: block;
+  }
+
+  .navbar-container .menu-items {
+    padding-top: 64px; /* Adjusted padding for menu items */
+  }
+
+  .logo {
+    font-size: 2rem; /* Adjusted font size for logo */
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 768px) {
+  .navbar {
+    opacity: 0.95;
+  }
+
+  .navbar-container input[type="checkbox"],
+  .navbar-container .hamburger-lines {
+    display: block;
+  }
+
+  .navbar-container {
+    display: block;
+    height: auto; /* Adjusted height for navbar container */
+  }
+
+
+}
+
+/* Smaller mobile devices */
+@media (max-width: 500px) {
+  .navbar-container input[type="checkbox"]:checked ~ .logo {
+    display: none;
+  }
+}
+
